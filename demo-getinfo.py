@@ -6,7 +6,7 @@
 code test get summary from newspaper by thaiph99
 '''
 
-from newspaperedited import Article
+from newspaperedited import Article, 
 # url = 'https://vnexpress.net/tiem-vaccine-covid-19-duoc-thuong-4254992.html'
 url = 'https://vnexpress.net/chau-phi-thieu-hut-vaccine-covid-19-4253715.html'
 article = Article(url)
