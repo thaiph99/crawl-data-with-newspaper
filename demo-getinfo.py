@@ -3,7 +3,7 @@
 # import nltk
 # nltk.download('punkt')
 '''
-code test get summary from newspaper by thaiph99
+code test get summary, keywords from newspaper by thaiph99
 '''
 
 from newspaperedited import Article
