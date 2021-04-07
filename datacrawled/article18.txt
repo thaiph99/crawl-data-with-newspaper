@@ -1,0 +1,7 @@
+Thách thức trong triển khai hộ chiếu vaccine điện tử
+https://vnexpress.net/thach-thuc-trong-trien-khai-ho-chieu-vaccine-dien-tu-4258341.html
+Hộ chiếu vaccine kỹ thuật số là ứng dụng chứa thông tin sức khỏe và quan trọng nhất là tình trạng tiêm vaccine Covid-19 của một người.
+Việc nhiều tổ chức khác nhau đang phát triển ứng dụng hộ chiếu vaccine càng chứng minh tầm quan trọng của một tiêu chuẩn chung.
+Ứng dụng hộ chiếu vaccine hoạt động thế nào?
+Trong tháng này công ty IBM đã hợp tác cùng New York ra mắt một ứng dụng hộ chiếu vaccine có tên Excelsior.
+"Gần như mọi công ty chúng tôi hợp tác để triển khai ứng dụng hộ chiếu vaccine đều không muốn xem dữ liệu người dùng.
