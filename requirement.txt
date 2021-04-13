@@ -1,5 +1,7 @@
-newspaper
+nltk
 bs4
 requests
 pyvi
 numpy
+skearn
+newspaper
