@@ -45,11 +45,12 @@ class News:
         self.list_text_news = []
         self.list_score_news = []
 
-    def get_url_news_from_urls(self, list_urls):
+    def get_url_news_from_urls(self, url):
 
         def is_valid(url):
             return re.findall(r'\.[a-z]{3}', url) and re.search(r'https://', url)
 
+        list_urls_tmp = []
         respone = requests.get(url)
         soup = BeautifulSoup(respone.text, 'html.parser')
         for a in soup.find_all('a', href=True):
@@ -58,8 +59,9 @@ class News:
             news_link = news_link.replace('https://youtube.com', '')
             news_link = news_link.replace('https://facebook.com', '')
 
-            if news_link not in self.list_url_news and is_valid(news_link):
-                self.list_url_news.append(news_link)
+            if news_link not in list_urls_tmp and is_valid(news_link):
+                list_urls_tmp.append(news_link)
 
-        return self.list_url_news
+        return list_urls_tmp
+
     
