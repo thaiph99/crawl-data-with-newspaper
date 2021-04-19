@@ -9,6 +9,10 @@ import re
 from pyvi import ViTokenizer
 from collections import Counter
 import sys
+import os
+# from sklearn.metrics.pairwise import euclidean_distances
+# from numpy.linalg import norm
+from scipy.spatial import distance
 
 
 class Keyword:
@@ -60,24 +64,35 @@ class News:
         found = soup.find_all('a', href=True)
         for a in found:
             news_link = a['href']
-            news_link = news_link.replace('#box_comment_vne', '')
-            news_link = news_link.replace('#box_comment', '')
-            news_link = news_link.replace('https://youtube.com', '')
-            news_link = news_link.replace('https://facebook.com', '')
+
+            list_remove = ['#box_comment_vne','#box_comment', 
+                            'https://youtube.com',
+                            'https://twitter.com',
+                            'https://facebook.com',
+                            'https://www.facebook.com',
+                            'https://www.twitter.com',
+                            'https://www.youtube.com']
+
+            for removee in list_remove:
+                news_link = news_link.replace(removee, '')
+
             if news_link not in self.list_url_news and is_valid(news_link):
                 self.list_url_news.append(news_link)
 
     def __get_text_url(self, url):
         text = ''
+        title = ''
         try:
             article = Article(url)
             article.download()
             article.parse()
         except:
-            return text
-        self.list_title.append(article.title)
+            return
+        title = article.title
         text = article.text.replace('\n', '.\n')
-        return text
+        self.list_title.append(title)
+        self.list_text_news.append(text)
+        # print(title, text)
 
     def __get_keywords_from_text(self, text):
         tokens = ViTokenizer.tokenize(text)
@@ -113,13 +128,16 @@ class News:
             percent = round(cnt/(len(self.list_url_news)), 2)*100
             cnt += 1
             print(f'Loading {percent}%', end='\r')
-            self.list_text_news.append(self.__get_text_url(url))
+            self.__get_text_url(url)
+            # print(len(self.list_text_news))
         print('\nDone')
-        return self.list_text_news
+        # return self.list_text_news
 
     def load_key(self):
         for text in self.list_text_news:
-            self.list_counter_keys.append(self.__get_keywords_from_text(text))
+            if text != '':
+                self.list_counter_keys.append(
+                    self.__get_keywords_from_text(text))
         return self.list_counter_keys
 
     def load_score(self, keys):
@@ -130,18 +148,55 @@ class News:
         return self.list_text_news
 
     def compare(self, bag1, bag2):
-        bag=bag1.keys() + bag2.keys()
-        bag=set(bag)
-        pass
+        if len(bag1.keys()) <= 100 or len(bag2.keys()) <= 100:
+            return 0
+        bag = list(bag1.keys()) + list(bag2.keys())
+        bag = set(bag)
+        vecbag1 = []
+        vecbag2 = []
+        for feature in bag:
+            if feature in bag1.keys():
+                vecbag1.append(bag1[feature])
+            else:
+                vecbag1.append(0)
+            if feature in bag2.keys():
+                vecbag2.append(bag2[feature])
+            else:
+                vecbag2.append(0)
+        return distance.euclidean(vecbag1, vecbag2)
 
     def write_data(self, filepath):
-        n=len(self.list_url_news)
-
-        with open(path, 'w') as f:
-            for i in range(n):
-                f.write(self.list_title[i])
-                f.write(self.list_url_news[i])
-                f.write(self.list_text_news[i])
+        n = len(self.list_text_news)
+        for i in range(n):
+            title = self.list_title[i]
+            url = self.list_url_news[i]
+            text = self.list_text_news[i]
+            for c in ['>', '\n']:
+                try:
+                    text = text.replace(c, ' ')
+                except:
+                    pass
+            with open(filepath+'/'+str(i)+'.txt', 'w') as f:
+                f.write(str(title))
+                f.write('\n')
+                f.write(str(url))
+                f.write('\n')
+                f.write(str(text))
+                f.write('\n')
 
     def load_data(self, filepath):
-        pass
+        pix = os.listdir(filepath)
+        self.list_title = []
+        self.list_url_news = []
+        self.list_text_news = []
+        self.list_score_news = []
+        self.list_counter_keys = []
+        for filename in pix:
+            with open(filepath+'/'+filename, 'r') as f:
+                title = f.readline()
+                url = f.readline()
+                text = f.readline()
+            # print(title)
+            self.list_title.append(title)
+            self.list_url_news.append(url)
+            self.list_text_news.append(text)

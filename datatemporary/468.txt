@@ -1,0 +1,3 @@
+Bài toán điền số trong IMSO 2019
+https://vnexpress.net/bai-toan-dien-so-trong-imso-2019-4263613.html
+Trong 3 phút, bạn có thể tìm ra đáp số bài toán do Việt Nam đề nghị tại kỳ thi IMSO 2019 dành cho học sinh dưới 13 tuổi, tổ chức tại Hà Nội.. . Đề bài.. . Mỗi chữ cái trong phép trừ HANOI – IMSO biểu thị một chữ số. Các chữ cái khác nhau biểu thị chữ số khác nhau, và H, I là các chữ số khác 0.. . Hỏi số IMSO có thể nhận bao nhiêu giá trị để kết quả của phép trừ trên là một số có 3 chữ số?. . Trần Phương
