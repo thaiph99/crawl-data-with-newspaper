@@ -143,7 +143,7 @@ class News:
     def load_score(self, keys):
         for counter_key1text in self.list_counter_keys:
             self.list_score_news.append(
-                self.__get_important_score(couter_keys, keys))
+                self.__get_important_score(counter_key1text, keys))
 
         return self.list_text_news
 
