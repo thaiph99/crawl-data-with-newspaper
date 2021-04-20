@@ -6,8 +6,7 @@ input :
 	- 3 keywords (eg: 'covid-19', 'Viet Nam')
 
 
-output : 
-
+output :
 
 	- urls
 	- summarys 

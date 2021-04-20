@@ -4,4 +4,4 @@ requests
 pyvi
 numpy
 skearn
-newspaper
+newspaper3k
