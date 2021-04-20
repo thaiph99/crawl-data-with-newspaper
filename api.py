@@ -176,7 +176,7 @@ class News:
                     text = text.replace(c, ' ')
                 except:
                     pass
-            with open(filepath+'/'+str(i)+'.txt', 'w') as f:
+            with open(file  path+'/'+str(i)+'.txt', 'w') as f:
                 f.write(str(title))
                 f.write('\n')
                 f.write(str(url))
