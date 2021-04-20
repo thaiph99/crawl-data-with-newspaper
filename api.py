@@ -108,12 +108,12 @@ class News:
         return counter_tokens
 
     @staticmethod
-    def get_important_score(couter_keys, keys):
+    def get_important_score(counter_keys, keys):
         score = 0
-        for key in couter_keys.keys():
+        for key in counter_keys.keys():
             for k in keys:
                 if k == key.lower():
-                    score += couter_keys[key]
+                    score += counter_keys[key]
         return score
 
     def load_urls(self, categories):
