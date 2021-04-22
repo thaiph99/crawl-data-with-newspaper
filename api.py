@@ -149,7 +149,7 @@ class News:
             self.list_score_news.append(
                 self.get_important_score(counter_key1text, keys))
 
-        return self.list_text_news
+        return self.list_score_news
 
     @staticmethod
     def compare(bag1, bag2):
