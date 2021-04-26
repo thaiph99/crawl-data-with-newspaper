@@ -9,6 +9,7 @@ from pyvi import ViTokenizer
 from collections import Counter
 import os
 from scipy.spatial import distance
+from concurrent.futures import ThreadPoolExecutor, as_completed, ProcessPoolExecutor
 
 
 class Keyword:
@@ -94,6 +95,7 @@ class News:
         text = article.text.replace('\n', '.\n')
         self.list_title.append(title)
         self.list_text_news.append(text)
+        # return title, text
         # print(title, text)
 
     @staticmethod
@@ -117,27 +119,64 @@ class News:
         return score
 
     def load_urls(self, categories):
-        cnt = 0
-        for category in categories:
-            percent = round(cnt / (len(categories)), 2) * 100
-            cnt += 1
-            print(f'Loading {percent}%', end='\r')
-            self.__get_urls_news_from_category(category)
-        print('\nDone')
-        return self.list_url_news
+        with ThreadPoolExecutor(max_workers=100) as executor:
+            for category in categories:
+                executor.submit(self.__get_urls_news_from_category, category)
+
+    # def load_urls(self, categories):
+    #     cnt = 0
+    #     for category in categories:
+    #         percent = round(cnt / (len(categories)), 2) * 100
+    #         cnt += 1
+    #         print(f'Loading {percent}%', end='\r')
+    #         self.__get_urls_news_from_category(category)
+    #     print('\nDone')
+    #     return self.list_url_news
+
+    # def load_text(self):
+    #     cnt = 0
+    #     for url in self.list_url_news:
+    #         percent = round(cnt / (len(self.list_url_news)), 2) * 100
+    #         cnt += 1
+    #         print(f'Loading {percent}%', end='\r')
+    #         self.__get_text_url(url)
+    #         # print(len(self.list_text_news))
+    #     print('\nDone')
+    #     # return self.list_text_news
 
     def load_text(self):
-        cnt = 0
-        for url in self.list_url_news:
-            percent = round(cnt / (len(self.list_url_news)), 2) * 100
-            cnt += 1
-            print(f'Loading {percent}%', end='\r')
-            self.__get_text_url(url)
-            # print(len(self.list_text_news))
-        print('\nDone')
-        # return self.list_text_news
+        # muliple threading
+        with ThreadPoolExecutor(max_workers=100) as executor:
+            for url in self.list_url_news:
+                executor.submit(self.__get_text_url, url)
+
+        # multiple processing
+        # processes = []
+        # list_tmp = self.list_url_news
+        # with ProcessPoolExecutor(max_workers=6) as executor:
+        #     for url in list_tmp:
+        #         ex = executor.submit(self.__get_text_url, url)
+        #         processes.append(ex)
+
+        # self.list_title = []
+        # self.list_text_news = []
+        # for task in as_completed(processes):
+        #     tup = task.result()
+        #     self.list_counter_keys.append(tup[0])
+        #     self.list_counter_keys.append(tup[1])
 
     def load_key(self):
+        # multiple processing
+        # with ProcessPoolExecutor(max_workers=6) as exercutor:
+        #     processes = []
+        #     for text in self.list_text_news:
+        #         if text != '':
+        #             ex = exercutor.submit(self.__get_keywords_from_text, text)
+        #             processes.append(ex)
+
+        # for task in as_completed(processes):
+        #     self.list_counter_keys.append(task.result())
+        # single processing
         for text in self.list_text_news:
             if text != '':
                 self.list_counter_keys.append(
