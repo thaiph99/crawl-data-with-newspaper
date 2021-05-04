@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Craw</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='app.css') }}" />
+    <script
+      type="text/javascript"
+      src="{{ url_for('static', filename='lodash.js') }}"
+    ></script>
+    <script
+      type="text/javascript"
+      src="{{ url_for('static', filename='immutable.js') }}"
+    ></script>
+    <script
+      type="text/javascript"
+      src="{{ url_for('static', filename='axios.js') }}"
+    ></script>
+    <script
+      type="text/javascript"
+      src="{{ url_for('static', filename='jquery.js') }}"
+    ></script>
+    <script
+      type="text/javascript"
+      src="{{ url_for('static', filename='app.js') }}"
+    ></script>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Craw data from newspapers</h1>
+      <div id="train-content">
+        <form method="post" id="train">
+          <div class="form-item">
+            <label for="input-file">Urls</label>
+            <input
+              id="url1"
+              name="name"
+              value=""
+              type="text"
+              placeholder="url"
+            />
+            <br />
+            <input
+              id="url2"
+              name="name"
+              value=""
+              type="text"
+              placeholder="url"
+            />
+            <br />
+            <input
+              id="url3"
+              name="name"
+              value=""
+              type="text"
+              placeholder="url"
+            />
+            <br />
+          </div>
+          <div class="form-item">
+            <label>key words</label>
+            <input
+              id="key1"
+              name="name"
+              value=""
+              type="text"
+              placeholder="key word"
+            />
+            <br />
+            <input
+              id="key2"
+              name="name"
+              value=""
+              type="text"
+              placeholder="key word"
+            />
+            <br />
+            <input
+              id="key3"
+              name="name"
+              value=""
+              type="text"
+              placeholder="key word"
+            />
+            <br />
+          </div>
+          <div class="form-action">
+            <input type="submit" value="Begin crawl" />
+          </div>
+        </form>
+      </div>
+      <div class="message"></div>
+    </div>
+  </body>
+</html>

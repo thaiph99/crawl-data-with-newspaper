@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Craw</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='app.css') }}" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Craw data from newspapers</h1>
+      <div id="train-content1">
+        <form method="post" id="train">
+          <div class="form-item">
+            <label for="input-file">Urls</label>
+            <br />
+            <input
+              id="url0"
+              name="url0"
+              value="{{request.form.url0}}"
+              type="text"
+              placeholder="url"
+            />
+            <br />
+            <input
+              id="url1"
+              name="url1"
+              value="{{request.form.url1}}"
+              type="text"
+              placeholder="url"
+            />
+            <br />
+            <input
+              id="url2"
+              name="url2"
+              value="{{request.form.url2}}"
+              type="text"
+              placeholder="url"
+            />
+            <br />
+            <br />
+            <br />
+          </div>
+          <div class="form-item">
+            <label>key words</label>
+            <br />
+            <input
+              id="key0"
+              name="key0"
+              value="{{request.form.key0}}"
+              type="text"
+              placeholder="key word"
+            />
+            <br />
+            <input
+              id="key1"
+              name="key1"
+              value="{{request.form.key1}}"
+              type="text"
+              placeholder="key word"
+            />
+            <br />
+            <input
+              id="key2"
+              name="key2"
+              value="{{request.form.key2}}"
+              type="text"
+              placeholder="key word"
+            />
+            <br />
+          </div>
+          <div class="form-action">
+            <input type="submit" value="Begin crawl" />
+          </div>
+          <br />
+          <br />
+        </form>
+      </div>
+      <div>
+        <table border="1">
+          {%for key, value in result.items() %}
+          <tr>
+            <th>{{ key }}</th>
+            <td>{{ value }}</td>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+    </div>
+  </body>
+</html>

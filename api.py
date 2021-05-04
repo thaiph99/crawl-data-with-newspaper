@@ -181,10 +181,15 @@ class News:
             if text != '':
                 self.list_counter_keys.append(
                     self.__get_keywords_from_text(text))
+            else:
+                self.list_counter_keys.append({'': 1})
         return self.list_counter_keys
 
     def load_score(self, keys):
         for counter_key1text in self.list_counter_keys:
+            # print(keys)
+            # print(counter_key1text)
+            print('------------------------------')
             self.list_score_news.append(
                 self.get_important_score(counter_key1text, keys))
 
@@ -195,6 +200,7 @@ class News:
         if len(bag1.keys()) <= 100 or len(bag2.keys()) <= 100:
             return 0
         bag = list(bag1.keys()) + list(bag2.keys())
+        bag = [word.lower() for word in bag]
         bag = set(bag)
         vecbag1 = []
         vecbag2 = []
