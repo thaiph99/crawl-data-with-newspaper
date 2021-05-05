@@ -25,23 +25,27 @@ def process(url, key):
         list_category += categorys.get_category_url_from_url(url_home)
     list_category
     news = News()
-    news.load_urls(list_category[:2])
+    news.load_urls(list_category)
     news.load_text()
     news.load_key()
     news.load_score(key.list_keys)
-    print(len(news.list_text_news))
-    print(len(news.list_counter_keys))
-    print(len(news.list_score_news))
-    print(len(news.list_title))
-    print(len(news.list_url_news))
+    # print(len(news.list_text_news))
+    # print(len(news.list_counter_keys))
+    # print(len(news.list_score_news))
+    # print(len(news.list_title))
+    # print(len(news.list_url_news))
+    # for i in range(len(news.list_url_news)):
+    #     print(news.list_url_news[i])
+    #     print(news.list_title[i])
+    #     print('------------------')
     list_ans = news.list_score_news
     print(list_ans)
-    print(len(dict_ans))
     list_index = [_ for _ in range(len(list_ans))]
     dict_ans = dict(zip(list_ans, list_index))
-    dict_ans = dict(sorted(dict_ans.items(), key=lambda x: -x[0]))
+    dict_ans = dict(sorted(dict_ans.items(), key=lambda x: -x[0])[:20])
+
     print(dict_ans)
-    
+
     dict_res = {}
     for _, i in dict_ans.items():
         dict_res[news.list_title[i]] = news.list_url_news[i]
