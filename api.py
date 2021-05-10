@@ -82,7 +82,7 @@ class News:
             if news_link not in self.list_url_news and is_valid(news_link):
                 self.list_url_news.append(news_link)
 
-    def __get_text_url(self, url):
+    def __get_text_url(self, url, index):
         text = ''
         title = ''
         try:
@@ -90,11 +90,13 @@ class News:
             article.download()
             article.parse()
         except:
+            self.list_title[index] = title
+            self.list_text_news[index] = stext
             return
         title = article.title
         text = article.text.replace('\n', '.\n')
-        self.list_title.append(title)
-        self.list_text_news.append(text)
+        self.list_title[index] = title
+        self.list_text_news[index] = text
         # return title, text
         # print(title, text)
 
@@ -146,9 +148,15 @@ class News:
 
     def load_text(self):
         # muliple threading
+
+        self.list_text_news = ['' for _ in range(len(self.list_url_news))]
+        self.list_title = ['' for _ in range(len(self.list_url_news))]
+        dict_index = {self.list_url_news[i]: i for i in range(
+            len(self.list_url_news))}
+
         with ThreadPoolExecutor(max_workers=100) as executor:
             for url in self.list_url_news:
-                executor.submit(self.__get_text_url, url)
+                executor.submit(self.__get_text_url, url, dict_index[url])
 
         # multiple processing
         # processes = []
@@ -189,7 +197,7 @@ class News:
         for counter_key1text in self.list_counter_keys:
             # print(keys)
             # print(counter_key1text)
-            print('------------------------------')
+            # print('------------------------------')
             self.list_score_news.append(
                 self.get_important_score(counter_key1text, keys))
 

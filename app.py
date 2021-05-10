@@ -3,7 +3,7 @@ from api import News
 from api import Keyword
 from api import Url
 from api import Category
-import time
+from time import time
 
 app = Flask(__name__)
 result = {}
@@ -24,60 +24,61 @@ def process(url, key):
     for url_home in url.list_url:
         list_category += categorys.get_category_url_from_url(url_home)
     list_category
+    start = time()
     news = News()
+    print(f'time1 : {time()-start}')
     news.load_urls(list_category)
+    print(f'time2 : {time()-start}')
     news.load_text()
+    print(f'time3 : {time()-start}')
     news.load_key()
+    print(f'time4 : {time()-start}')
     news.load_score(key.list_keys)
-    # print(len(news.list_text_news))
-    # print(len(news.list_counter_keys))
-    # print(len(news.list_score_news))
-    # print(len(news.list_title))
-    # print(len(news.list_url_news))
+    print(f'time5 : {time()-start}')
+    print('list text ', len(news.list_text_news))
+    print('list counter key ', len(news.list_counter_keys))
+    print('list score ', len(news.list_score_news))
+    print('list title ', len(news.list_title))
+    print('list url ', len(news.list_url_news))
+    list_ans = news.list_score_news
+
     # for i in range(len(news.list_url_news)):
     #     print(news.list_url_news[i])
     #     print(news.list_title[i])
-    #     print('------------------')
-    list_ans = news.list_score_news
-    print(list_ans)
-    list_index = [_ for _ in range(len(list_ans))]
-    dict_ans = dict(zip(list_ans, list_index))
-    dict_ans = dict(sorted(dict_ans.items(), key=lambda x: -x[0])[:20])
 
+    list_index=[_ for _ in range(len(list_ans))]
+    dict_ans=dict(zip(list_ans, list_index))
+    dict_ans=dict(sorted(dict_ans.items(), key=lambda x: -x[0])[:20])
     print(dict_ans)
 
-    dict_res = {}
+    dict_res={}
     for _, i in dict_ans.items():
-        dict_res[news.list_title[i]] = news.list_url_news[i]
-    print(dict_res)
+        dict_res[news.list_title[i]]=(news.list_url_news[i], news.list_title[i])
+    # print(dict_res)
+    print('total time : ', time()-start)
     return dict_res
-    # list_score = []
-    # for i in news.list_counter_keys:
-    #     for j in news.list_counter_keys:
-    #         list_score.append((news.compare(i, j), cnti, cntj))
 
 
-@app.route("/", methods=["POST", "GET"])
+@ app.route("/", methods=["POST", "GET"])
 def crawl():
-    start = time.time()
-    list_urls = [1, 2, 3]
-    list_keys = [1, 2, 3]
+    list_urls=[1, 2, 3]
+    list_keys=[1, 2, 3]
     if request.method == 'POST':
-        list_urls[0] = request.form['url0']
-        list_urls[1] = request.form['url1']
-        list_urls[2] = request.form['url2']
-        list_keys[0] = request.form['key0']
-        list_keys[1] = request.form['key1']
-        list_keys[2] = request.form['key2']
+        list_urls[0]=request.form['url0']
+        list_urls[1]=request.form['url1']
+        list_urls[2]=request.form['url2']
+        list_keys[0]=request.form['key0']
+        list_keys[1]=request.form['key1']
+        list_keys[2]=request.form['key2']
 
-        urls = Url(list_urls)
+        urls=Url(list_urls)
         urls.standardized()
-        keys = Keyword(list_keys)
+        keys=Keyword(list_keys)
         keys.standardized()
-        result = process(urls, keys)
+        result=process(urls, keys)
         print(type(result))
         # result = {'test1': 'pham hong thai', 'test2': 'thaiph99'}
-    print('total time : ', time.time()-start)
+
     return render_template('index2.html', result=result)
 
 
