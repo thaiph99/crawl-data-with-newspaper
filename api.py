@@ -21,6 +21,7 @@ class Keyword:
             self.list_keys = input_file
 
     def standardized(self):
+        self.list_keys = [key.strip() for key in self.list_keys]
         self.list_keys = [key.replace('\n', '') for key in self.list_keys]
         self.list_keys = [key.replace(' ', '_') for key in self.list_keys]
         self.list_keys = [key.lower() for key in self.list_keys]
@@ -35,6 +36,7 @@ class Url:
             self.list_url = input_file
 
     def standardized(self):
+        self.list_url = [url.strip() for url in self.list_url]
         self.list_url = [url.replace('\n', '') for url in self.list_url]
 
 
@@ -69,12 +71,28 @@ class News:
             news_link = a['href']
 
             list_remove = ['#box_comment_vne', '#box_comment',
+                           'https://ai4vn.vnexpress.net/'
                            'https://youtube.com',
                            'https://twitter.com',
                            'https://facebook.com',
                            'https://www.facebook.com',
                            'https://www.twitter.com',
-                           'https://www.youtube.com']
+                           'https://www.youtube.com',
+                           'https://www.24h.com.vn/magazine-c934.html',
+                           'https://nhadat.tuoitre.vn/thi-truong.htm',
+                           'https://www.24h.com.vn/tuyen-sinh-dh-cd-c365.html',
+                           '#box_comment_vne', '#box_comment',
+                           'ai4vn.vnexpress.net'
+                           'youtube.com',
+                           'twitter.com',
+                           'facebook.com',
+                           'www.facebook.com',
+                           'www.twitter.com',
+                           'www.youtube.com',
+                           'www.24h.com.vn/magazine-c934.html',
+                           'nhadat.tuoitre.vn/thi-truong.htm',
+                           'www.24h.com.vn/tuyen-sinh-dh-cd-c365.html'
+                           ]
 
             for removee in list_remove:
                 news_link = news_link.replace(removee, '')
@@ -91,7 +109,7 @@ class News:
             article.parse()
         except:
             self.list_title[index] = title
-            self.list_text_news[index] = stext
+            self.list_text_news[index] = text
             return
         title = article.title
         text = article.text.replace('\n', '.\n')

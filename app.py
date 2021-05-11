@@ -1,4 +1,4 @@
-from flask import Flask, redirect, url_for, render_template, request, flash
+from flask import Flask, render_template, request
 from api import News
 from api import Keyword
 from api import Url
@@ -46,14 +46,15 @@ def process(url, key):
     #     print(news.list_url_news[i])
     #     print(news.list_title[i])
 
-    list_index=[_ for _ in range(len(list_ans))]
-    dict_ans=dict(zip(list_ans, list_index))
-    dict_ans=dict(sorted(dict_ans.items(), key=lambda x: -x[0])[:20])
+    list_index = [_ for _ in range(len(list_ans))]
+    dict_ans = dict(zip(list_ans, list_index))
+    dict_ans = dict(sorted(dict_ans.items(), key=lambda x: -x[0])[:10])
     print(dict_ans)
 
-    dict_res={}
+    dict_res = {}
     for _, i in dict_ans.items():
-        dict_res[news.list_title[i]]=(news.list_url_news[i], news.list_title[i])
+        dict_res[news.list_title[i]] = (
+            news.list_url_news[i], news.list_title[i])
     # print(dict_res)
     print('total time : ', time()-start)
     return dict_res
@@ -61,21 +62,37 @@ def process(url, key):
 
 @ app.route("/", methods=["POST", "GET"])
 def crawl():
-    list_urls=[1, 2, 3]
-    list_keys=[1, 2, 3]
+    list_urls = []
+    list_keys = []
     if request.method == 'POST':
-        list_urls[0]=request.form['url0']
-        list_urls[1]=request.form['url1']
-        list_urls[2]=request.form['url2']
-        list_keys[0]=request.form['key0']
-        list_keys[1]=request.form['key1']
-        list_keys[2]=request.form['key2']
+        a = [1, 2, 3]
+        b = [1, 2, 3]
+        a[0] = request.form['url0']
+        a[1] = request.form['url1']
+        a[2] = request.form['url2']
+        b[0] = request.form['key0']
+        b[1] = request.form['key1']
+        b[2] = request.form['key2']
 
-        urls=Url(list_urls)
+        for i in a:
+            ii = i.strip()
+            if ii != '':
+                list_urls.append(ii)
+
+        for i in b:
+            ii = i.strip()
+            if ii != '':
+                list_keys.append(ii)
+
+        print((list_urls))
+        print((list_keys))
+        print('len keys : ', len(list_keys))
+        print('len urls : ', len(list_urls))
+        urls = Url(list_urls)
         urls.standardized()
-        keys=Keyword(list_keys)
+        keys = Keyword(list_keys)
         keys.standardized()
-        result=process(urls, keys)
+        result = process(urls, keys)
         print(type(result))
         # result = {'test1': 'pham hong thai', 'test2': 'thaiph99'}
 
