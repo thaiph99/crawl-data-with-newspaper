@@ -24,6 +24,8 @@ def process(url, key):
     print(f'time1 : {time()-start}')
     news.load_urls(url, key)
     print(f'time2 : {time()-start}')
+    url.standardized()
+    key.standardized()
     news.load_text()
     print(f'time3 : {time()-start}')
     news.load_key()
@@ -86,9 +88,9 @@ def crawl():
         print('len keys : ', len(list_keys))
         print('len urls : ', len(list_urls))
         urls = Url(list_urls)
-        urls.standardized()
+
         keys = Keyword(list_keys)
-        keys.standardized()
+
         result = process(urls, keys)
         print(type(result))
         # result = {'test1': 'pham hong thai', 'test2': 'thaiph99'}
