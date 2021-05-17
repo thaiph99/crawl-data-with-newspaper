@@ -1,8 +1,8 @@
 from flask import Flask, render_template, request
-from api import News
-from api import Keyword
-from api import Url
-from api import Category
+from api1 import News
+from api1 import Keyword
+from api1 import Url
+from api1 import Category
 from time import time
 
 app = Flask(__name__)
@@ -19,15 +19,10 @@ def compare_and_remove(dict_ans):
 
 
 def process(url, key):
-    categorys = Category()
-    list_category = []
-    for url_home in url.list_url:
-        list_category += categorys.get_category_url_from_url(url_home)
-    list_category
     start = time()
     news = News()
     print(f'time1 : {time()-start}')
-    news.load_urls(list_category)
+    news.load_urls(url, key)
     print(f'time2 : {time()-start}')
     news.load_text()
     print(f'time3 : {time()-start}')
@@ -48,11 +43,13 @@ def process(url, key):
 
     list_index = [_ for _ in range(len(list_ans))]
     dict_ans = dict(zip(list_ans, list_index))
-    dict_ans = dict(sorted(dict_ans.items(), key=lambda x: -x[0])[:10])
+    dict_ans = dict(sorted(dict_ans.items(), key=lambda x: -x[0])[:20])
     print(dict_ans)
 
     dict_res = {}
     for _, i in dict_ans.items():
+        if _ == 0:
+            break
         dict_res[news.list_title[i]] = (
             news.list_url_news[i], news.list_title[i])
     # print(dict_res)
