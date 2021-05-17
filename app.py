@@ -1,9 +1,8 @@
-from flask import Flask, render_template, request
-from api1 import News
-from api1 import Keyword
-from api1 import Url
-from api1 import Category
 from time import time
+from flask import Flask, render_template, request
+from api1 import Keyword
+from api1 import News
+from api1 import Url
 
 app = Flask(__name__)
 result = {}
@@ -21,17 +20,17 @@ def compare_and_remove(dict_ans):
 def process(url, key):
     start = time()
     news = News()
-    print(f'time1 : {time()-start}')
+    print(f'time1 : {time() - start}')
     news.load_urls(url, key)
-    print(f'time2 : {time()-start}')
+    print(f'time2 : {time() - start}')
     url.standardized()
     key.standardized()
     news.load_text()
-    print(f'time3 : {time()-start}')
+    print(f'time3 : {time() - start}')
     news.load_key()
-    print(f'time4 : {time()-start}')
+    print(f'time4 : {time() - start}')
     news.load_score(key.list_keys)
-    print(f'time5 : {time()-start}')
+    print(f'time5 : {time() - start}')
     print('list text ', len(news.list_text_news))
     print('list counter key ', len(news.list_counter_keys))
     print('list score ', len(news.list_score_news))
@@ -55,11 +54,11 @@ def process(url, key):
         dict_res[news.list_title[i]] = (
             news.list_url_news[i], news.list_title[i])
     # print(dict_res)
-    print('total time : ', time()-start)
+    print('total time : ', time() - start)
     return dict_res
 
 
-@ app.route("/", methods=["POST", "GET"])
+@app.route("/", methods=["POST", "GET"])
 def crawl():
     list_urls = []
     list_keys = []
@@ -83,8 +82,8 @@ def crawl():
             if ii != '':
                 list_keys.append(ii)
 
-        print((list_urls))
-        print((list_keys))
+        print(list_urls)
+        print(list_keys)
         print('len keys : ', len(list_keys))
         print('len urls : ', len(list_urls))
         urls = Url(list_urls)

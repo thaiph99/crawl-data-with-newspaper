@@ -40,7 +40,7 @@ for url in dict_url.keys():
     if title not in dict_title.keys():
         dict_title[title] = 1
         cnt += 1
-        with open(path+'article'+str(cnt)+'.txt', 'w') as f:
-            f.write(title+'\n')
-            f.write(url+'\n')
-            f.write(summary+'\n')
+        with open(path + 'article' + str(cnt) + '.txt', 'w') as f:
+            f.write(title + '\n')
+            f.write(url + '\n')
+            f.write(summary + '\n')

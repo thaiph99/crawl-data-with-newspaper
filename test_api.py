@@ -12,7 +12,6 @@ print('Load category')
 list_category = []
 for url_home in url.list_url:
     list_category += categorys.get_category_url_from_url(url_home)
-list_category
 
 news = News()
 print('Load url')

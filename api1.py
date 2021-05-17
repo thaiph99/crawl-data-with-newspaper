@@ -1,16 +1,13 @@
 __author__ = 'thaiph99'
 
-from newspaper import Article
-import newspaper
-from bs4 import BeautifulSoup
-import requests
-import re
-from pyvi import ViTokenizer
-from collections import Counter
 import os
-from scipy.spatial import distance
+from collections import Counter
 from concurrent.futures import ThreadPoolExecutor
+import newspaper
 from googlesearch import search
+from newspaper import Article
+from pyvi import ViTokenizer
+from scipy.spatial import distance
 
 
 class Keyword:
@@ -100,13 +97,11 @@ class News:
         except:
             self.list_title[index] = title
             self.list_text_news[index] = text
-            return
-        title = article.title
-        text = article.text.replace('\n', '.\n')
-        self.list_title[index] = title
-        self.list_text_news[index] = text
-        # return title, text
-        # print(title, text)
+        else:
+            title = article.title
+            text = article.text.replace('\n', '.\n')
+            self.list_title[index] = title
+            self.list_text_news[index] = text
 
     @staticmethod
     def __get_keywords_from_text(text):
@@ -136,7 +131,7 @@ class News:
         print('len :', len(self.list_url_news))
 
     def load_text(self):
-        # muliple threading
+        # multiple threading
 
         self.list_text_news = ['' for _ in range(len(self.list_url_news))]
         self.list_title = ['' for _ in range(len(self.list_url_news))]
@@ -193,7 +188,7 @@ class News:
             for c in ['>', '\n']:
                 try:
                     text = text.replace(c, ' ')
-                except:
+                finally:
                     continue
             with open(filepath + '/' + str(i) + '.txt', 'w') as f:
                 f.write(str(title))
