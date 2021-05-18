@@ -7,6 +7,10 @@ from api1 import Url
 app = Flask(__name__)
 result = {}
 
+result['number_urls'] = ['url0', 'url1', 'url2']
+result['number_keys'] = ['key0', 'key0', 'key2']
+result['data'] = {}
+
 
 @app.route("/")
 def home():
@@ -62,15 +66,19 @@ def process(url, key):
 def crawl():
     list_urls = []
     list_keys = []
-    if request.method == 'POST':
-        a = [1, 2, 3]
-        b = [1, 2, 3]
-        a[0] = request.form['url0']
-        a[1] = request.form['url1']
-        a[2] = request.form['url2']
-        b[0] = request.form['key0']
-        b[1] = request.form['key1']
-        b[2] = request.form['key2']
+    if request.form['crawl'] == 'Begin load':
+        urlnum = request.form['urlnum']
+        keynum = request.form['keynum']
+        result['number_urls'] = ['url'+str(_) for _ in range(int(urlnum))]
+        result['number_keys'] = ['key'+str(_) for _ in range(int(keynum))]
+        print(type(request.form))
+        print(request.form)
+        return render_template('index2.html', result=result)
+    if request.form['crawl'] == 'Begin crawl':
+        print(type(request.form))
+        print(request.form)
+        a = [request.form[_] for _ in result['number_urls']]
+        b = [request.form[_] for _ in result['number_keys']]
 
         for i in a:
             ii = i.strip()
@@ -87,14 +95,12 @@ def crawl():
         print('len keys : ', len(list_keys))
         print('len urls : ', len(list_urls))
         urls = Url(list_urls)
-
         keys = Keyword(list_keys)
 
-        result = process(urls, keys)
-        print(type(result))
+        result['data'] = process(urls, keys)
+        print('number articles :', len(result['data'].keys()))
         # result = {'test1': 'pham hong thai', 'test2': 'thaiph99'}
-
-    return render_template('index2.html', result=result)
+        return render_template('index2.html', result=result)
 
 
 if __name__ == "__main__":
