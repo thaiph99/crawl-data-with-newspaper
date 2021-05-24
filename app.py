@@ -1,3 +1,4 @@
+from os import sep
 from time import time
 from flask import Flask, render_template, request
 from api1 import Keyword
@@ -14,6 +15,9 @@ result['data'] = {}
 
 @app.route("/")
 def home():
+    result['number_urls'] = ['url0', 'url1', 'url2']
+    result['number_keys'] = ['key0', 'key0', 'key2']
+    result['data'] = {}
     return render_template("index2.html", result=result)
 
 
@@ -99,6 +103,7 @@ def crawl():
 
         result['data'] = process(urls, keys)
         print('number articles :', len(result['data'].keys()))
+        print(*result['data'], sep='\n')
         # result = {'test1': 'pham hong thai', 'test2': 'thaiph99'}
         return render_template('index2.html', result=result)
 
