@@ -1,23 +1,18 @@
-from os import sep
 from time import time
+
 from flask import Flask, render_template, request
+
 from api1 import Keyword
 from api1 import News
 from api1 import Url
 
 app = Flask(__name__)
-result = {}
-
-result['number_urls'] = ['url0', 'url1', 'url2']
-result['number_keys'] = ['key0', 'key0', 'key2']
-result['data'] = {}
+result = {'number_urls': ['url0', 'url1', 'url2'],
+          'number_keys': ['key0', 'key0', 'key2'], 'data': {}}
 
 
 @app.route("/")
 def home():
-    result['number_urls'] = ['url0', 'url1', 'url2']
-    result['number_keys'] = ['key0', 'key0', 'key2']
-    result['data'] = {}
     return render_template("index2.html", result=result)
 
 

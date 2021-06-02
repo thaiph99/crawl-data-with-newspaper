@@ -1,15 +1,16 @@
 __author__ = 'thaiph99'
 
-from newspaper import Article
-import newspaper
-from bs4 import BeautifulSoup
-import requests
-import re
-from pyvi import ViTokenizer
-from collections import Counter
 import os
+import re
+from collections import Counter
+from concurrent.futures import ThreadPoolExecutor
+
+import newspaper
+import requests
+from bs4 import BeautifulSoup
+from newspaper import Article
+from pyvi import ViTokenizer
 from scipy.spatial import distance
-from concurrent.futures import ThreadPoolExecutor, as_completed, ProcessPoolExecutor
 
 
 class Keyword:
