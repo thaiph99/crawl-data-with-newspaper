@@ -2,9 +2,7 @@ from time import time
 
 from flask import Flask, render_template, request
 
-from api1 import Keyword
-from api1 import News
-from api1 import Url
+from crawl.crawl_v2 import Keyword, News, Url
 
 app = Flask(__name__)
 result = {'number_urls': ['url0', 'url1', 'url2'],
@@ -13,7 +11,7 @@ result = {'number_urls': ['url0', 'url1', 'url2'],
 
 @app.route("/")
 def home():
-    return render_template("index2.html", result=result)
+    return render_template("inde.html", result=result)
 
 
 def compare_and_remove(dict_ans):
@@ -41,9 +39,6 @@ def process(url, key):
     print('list url ', len(news.list_url_news))
     list_ans = news.list_score_news
 
-    # for i in range(len(news.list_url_news)):
-    #     print(news.list_url_news[i])
-    #     print(news.list_title[i])
 
     list_index = [_ for _ in range(len(list_ans))]
     dict_ans = dict(zip(list_ans, list_index))
@@ -72,7 +67,7 @@ def crawl():
         result['number_keys'] = ['key'+str(_) for _ in range(int(keynum))]
         print(type(request.form))
         print(request.form)
-        return render_template('index2.html', result=result)
+        return render_template('index.html', result=result)
     if request.form['crawl'] == 'Begin crawl':
         print(type(request.form))
         print(request.form)
@@ -100,7 +95,7 @@ def crawl():
         print('number articles :', len(result['data'].keys()))
         print(*result['data'], sep='\n')
         # result = {'test1': 'pham hong thai', 'test2': 'thaiph99'}
-        return render_template('index2.html', result=result)
+        return render_template('index.html', result=result)
 
 
 if __name__ == "__main__":
