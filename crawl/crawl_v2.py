@@ -167,18 +167,18 @@ class News:
         bag = list(bag1.keys()) + list(bag2.keys())
         bag = [word.lower() for word in bag]
         bag = set(bag)
-        vecbag1 = []
-        vecbag2 = []
+        vector_bag1 = []
+        vector_bag2 = []
         for feature in bag:
             if feature in bag1.keys():
-                vecbag1.append(bag1[feature])
+                vector_bag1.append(bag1[feature])
             else:
-                vecbag1.append(0)
+                vector_bag1.append(0)
             if feature in bag2.keys():
-                vecbag2.append(bag2[feature])
+                vector_bag2.append(bag2[feature])
             else:
-                vecbag2.append(0)
-        return distance.euclidean(vecbag1, vecbag2)
+                vector_bag2.append(0)
+        return distance.euclidean(vector_bag1, vector_bag2)
 
     def write_data(self, filepath):
         n = len(self.list_text_news)

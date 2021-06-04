@@ -39,7 +39,6 @@ def process(url, key):
     print('list url ', len(news.list_url_news))
     list_ans = news.list_score_news
 
-
     list_index = [_ for _ in range(len(list_ans))]
     dict_ans = dict(zip(list_ans, list_index))
     dict_ans = dict(sorted(dict_ans.items(), key=lambda x: -x[0])[:20])
@@ -63,8 +62,8 @@ def crawl():
     if request.form['crawl'] == 'Begin load':
         urlnum = request.form['urlnum']
         keynum = request.form['keynum']
-        result['number_urls'] = ['url'+str(_) for _ in range(int(urlnum))]
-        result['number_keys'] = ['key'+str(_) for _ in range(int(keynum))]
+        result['number_urls'] = ['url' + str(_) for _ in range(int(urlnum))]
+        result['number_keys'] = ['key' + str(_) for _ in range(int(keynum))]
         print(type(request.form))
         print(request.form)
         return render_template('index.html', result=result)
