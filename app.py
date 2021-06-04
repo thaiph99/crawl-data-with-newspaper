@@ -11,7 +11,7 @@ result = {'number_urls': ['url0', 'url1', 'url2'],
 
 @app.route("/")
 def home():
-    return render_template("inde.html", result=result)
+    return render_template("index.html", result=result)
 
 
 def compare_and_remove(dict_ans):
