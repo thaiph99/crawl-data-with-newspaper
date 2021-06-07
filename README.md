@@ -10,7 +10,7 @@ Follow by step:
 
 - Crawl HTML from URLs - search results
 
-- Get text content from HTML
+- Load text content from HTML use multi-thread
 
 - Tokenizer text to words use NLP pre-train model
 

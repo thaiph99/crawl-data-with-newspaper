@@ -19,39 +19,23 @@ def compare_and_remove(dict_ans):
 
 
 def process(url, key):
-    start = time()
     news = News()
-    print(f'time1 : {time() - start}')
     news.load_urls(url, key)
-    print(f'time2 : {time() - start}')
     url.standardized()
     key.standardized()
     news.load_text()
-    print(f'time3 : {time() - start}')
     news.load_key()
-    print(f'time4 : {time() - start}')
     news.load_score(key.list_keys)
-    print(f'time5 : {time() - start}')
-    print('list text ', len(news.list_text_news))
-    print('list counter key ', len(news.list_counter_keys))
-    print('list score ', len(news.list_score_news))
-    print('list title ', len(news.list_title))
-    print('list url ', len(news.list_url_news))
     list_ans = news.list_score_news
-
     list_index = [_ for _ in range(len(list_ans))]
     dict_ans = dict(zip(list_ans, list_index))
     dict_ans = dict(sorted(dict_ans.items(), key=lambda x: -x[0])[:20])
-    print(dict_ans)
-
     dict_res = {}
     for _, i in dict_ans.items():
         if _ == 0:
             break
         dict_res[news.list_title[i]] = (
             news.list_url_news[i], news.list_title[i])
-    # print(dict_res)
-    print('total time : ', time() - start)
     return dict_res
 
 
@@ -83,17 +67,15 @@ def crawl():
             if ii != '':
                 list_keys.append(ii)
 
-        print(list_urls)
-        print(list_keys)
-        print('len keys : ', len(list_keys))
-        print('len urls : ', len(list_urls))
+        print('URL: ', list_urls)
+        print('keys: ', list_keys)
         urls = Url(list_urls)
         keys = Keyword(list_keys)
-
+        start = time()
         result['data'] = process(urls, keys)
+        print('total time : ', time()-start)
         print('number articles :', len(result['data'].keys()))
         print(*result['data'], sep='\n')
-        # result = {'test1': 'pham hong thai', 'test2': 'thaiph99'}
         return render_template('index.html', result=result)
 
 
