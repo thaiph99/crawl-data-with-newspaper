@@ -32,11 +32,11 @@
        return score
    ```
 
+   - Remove the similarity articles use a [bag of words](https://en.wikipedia.org/wiki/Bag-of-words_model) (vectorizer text engineering)
+
 1. UI project
 
    ![image](images/UIproject.png)
-
-- Remove the similarity articles use a [bag of words](https://en.wikipedia.org/wiki/Bag-of-words_model) (vectorizer text engineering)
 
 ## Prerequisites
 
