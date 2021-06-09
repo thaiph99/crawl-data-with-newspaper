@@ -11,6 +11,10 @@ result = {'number_urls': ['url0', 'url1', 'url2'],
 
 @app.route("/")
 def home():
+    # reload and clean data
+    result['number_urls'] = ['url0', 'url1', 'url2']
+    result['number_keys'] = ['key0', 'key0', 'key2']
+    result['data'] = {}
     return render_template("index.html", result=result)
 
 
