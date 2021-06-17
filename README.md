@@ -2,7 +2,7 @@
 
 ## Description
 
-1. Crawl information from some **URL** (of newspaper) and some **keywords**
+1. Search articles from some **URL** (of newspaper) and some **keywords**
 
 1. Follow by step:
 
@@ -60,7 +60,7 @@
 - Clone the repository
 
   ```sh
-  git clone https://github.com/thaiph99/crawl-data-with-newspaper.git
+  git clone https://github.com/thaiph99/search-engine-tool.git
   ```
 
 - Install requirement packages
