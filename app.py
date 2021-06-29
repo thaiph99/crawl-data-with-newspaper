@@ -36,7 +36,7 @@ def process(url, key):
     list_ans = news.list_score_news
     list_index = [_ for _ in range(len(list_ans))]
     dict_ans = dict(zip(list_ans, list_index))
-    dict_ans = dict(sorted(dict_ans.items(), key=lambda x: -x[0])[:20])
+    dict_ans = dict(sorted(dict_ans.items(), key=lambda x: -x[0])[:30])
     dict_res = {}
     for _, i in dict_ans.items():
         if _ == 0:
