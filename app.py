@@ -8,13 +8,16 @@ app = Flask(__name__)
 result = {'number_urls': ['url0', 'url1', 'url2'],
           'number_keys': ['key0', 'key0', 'key2'], 'data': {}}
 
+def init():
+    result['number_urls'] = ['url0', 'url1', 'url2']
+    result['number_keys'] = ['key0', 'key0', 'key2']
+    result['data'] = {}
+
 
 @app.route("/")
 def home():
     # reload and clean data
-    result['number_urls'] = ['url0', 'url1', 'url2']
-    result['number_keys'] = ['key0', 'key0', 'key2']
-    result['data'] = {}
+    init()
     return render_template("index.html", result=result)
 
 
@@ -52,8 +55,10 @@ def crawl():
         keynum = request.form['keynum']
         result['number_urls'] = ['url' + str(_) for _ in range(int(urlnum))]
         result['number_keys'] = ['key' + str(_) for _ in range(int(keynum))]
+        result['data'] = {}
         print(type(request.form))
         print(request.form)
+        # init()
         return render_template('index.html', result=result)
     if request.form['crawl'] == 'Begin crawl':
         print(type(request.form))
