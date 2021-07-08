@@ -8,6 +8,7 @@ app = Flask(__name__)
 result = {'number_urls': ['url0', 'url1', 'url2'],
           'number_keys': ['key0', 'key0', 'key2'], 'data': {}}
 
+
 def init():
     result['number_urls'] = ['url0', 'url1', 'url2']
     result['number_keys'] = ['key0', 'key0', 'key2']
